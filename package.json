@@ -1,0 +1,19 @@
+{
+  "name": "buisness",
+  "version": "1.0.0",
+  "description": "Car Showroom Website Program (Luxury → Semi-Luxury)\r Goal: Quickly design, build, and launch a polished, conversion-focused website for a luxury to semi-luxury car showroom. Focus on premium branding, high-quality inventory presentation, lead capture (test drives/finance), local SEO, and analytics.",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "nodemailer": "^7.0.11"
+  }
+}

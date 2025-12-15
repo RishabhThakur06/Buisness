@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Finance & Trade-In — Prestige Motors</title>
+		<meta name="description" content="Flexible financing options and confidential trade-in appraisals at Prestige Motors." />
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script defer src="/js/scripts.js"></script>
+		<style>
+			body{font-family:Inter, system-ui, Arial, sans-serif;color:var(--dark);margin:0;line-height:1.45}
+			header{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;border-bottom:1px solid var(--border)}
+			.logo{display:flex;gap:14px;align-items:center}
+			.logo img{height:48px}
+			nav{display:flex;flex-direction:row;align-items:center;gap:8px}
+			.nav-item{border-radius:999px;border:1px solid var(--border);background:var(--card);padding:0}
+			.nav-item a{display:block;padding:8px 12px;color:var(--muted);font-weight:500;text-decoration:none}
+			.nav-item a:hover{color:var(--dark)}
+			.nav-item a.active{color:var(--accent);font-weight:600}
+			.container{max-width:1200px;margin:0 auto}
+			.card{border-radius:8px;border:1px solid var(--border);padding:12px;background:var(--card)}
+			footer{padding:28px 36px;border-top:1px solid var(--border);margin-top:48px;color:var(--muted)}
+			button{background:var(--accent);color:white;padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+		</style>
+	</head>
+	<body>
+		<!-- Header -->
+		<header class="container">
+			<div class="logo">
+				<a href="/pages/home.html">
+					<img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=200&h=200&fit=crop&auto=format" alt="Prestige Motors logo" />
+				</a>
+				<div>
+					<div style="font-weight:700">Prestige Motors</div>
+					<div style="font-size:12px;color:var(--muted)">Luxury • Semi‑Luxury • Select Pre‑Owned</div>
+				</div>
+			</div>
+			<nav aria-label="Primary navigation">
+				<div class="nav-item"><a href="/pages/home.html">Home</a></div>
+				<div class="nav-item"><a href="/pages/inventory.html">Inventory</a></div>
+				<div class="nav-item"><a href="/pages/finance-tradein.html" class="active">Finance & Trade‑In</a></div>
+				<div class="nav-item"><a href="/pages/about.html">About</a></div>
+				<div class="nav-item"><a href="/pages/contact.html">Contact</a></div>
+				<div class="nav-item"><a href="/pages/login.html" style="color:var(--accent);font-weight:600">Admin</a></div>
+			</nav>
+			<!-- Header controls: theme toggle etc. -->
+			<div class="header-controls" aria-hidden="false">
+				<button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">☀️</button>
+			</div>
+		</header>
+
+		<!-- Finance & Trade-In -->
+		<main>
+			<section class="container" style="padding:48px 36px">
+				<h1>Finance & Trade‑In</h1>
+				<p style="color:var(--muted);max-width:850px;margin-bottom:24px">Flexible financing options and confidential trade‑in appraisals. We work with selected finance partners to provide customized payment plans and concierge valuation for trade‑ins.</p>
+				<div style="display:flex;gap:20px;margin-top:18px;flex-wrap:wrap">
+					<div class="card" style="flex:1;min-width:260px">
+						<h3 style="margin:0 0 12px">Finance Options</h3>
+						<p style="margin:0 0 12px;color:var(--muted)">Estimate monthly payments, pre‑qualify for finance, and choose custom plans tailored to high‑value purchases.</p>
+						<ul style="color:var(--muted);margin:12px 0;padding-left:20px">
+							<li>Competitive interest rates</li>
+							<li>Flexible payment terms</li>
+							<li>Quick pre-approval process</li>
+							<li>Customized payment plans</li>
+						</ul>
+						<a href="/pages/contact.html"><button>Apply for Finance</button></a>
+					</div>
+					<div class="card" style="flex:1;min-width:260px">
+						<h3 style="margin:0 0 12px">Trade‑In Appraisal</h3>
+						<p style="margin:0 0 12px;color:var(--muted)">Fast, transparent trade‑in valuation with pickup and concierge appointment options.</p>
+						<ul style="color:var(--muted);margin:12px 0;padding-left:20px">
+							<li>Free vehicle appraisal</li>
+							<li>Fair market valuation</li>
+							<li>Concierge pickup service</li>
+							<li>Seamless trade-in process</li>
+						</ul>
+						<a href="/pages/contact.html"><button>Request Trade-In</button></a>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="container">
+			<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+				<div>
+					<strong>Prestige Motors</strong> — Curated luxury & semi‑luxury cars • Licensed Dealer
+				</div>
+				<div style="color:var(--muted);font-size:13px">© <span id="year"></span> Prestige Motors — All rights reserved</div>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById('year').textContent = new Date().getFullYear();
+		</script>
+	</body>
+</html>
+

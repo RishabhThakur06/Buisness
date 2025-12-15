@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Inventory — Prestige Motors</title>
+		<meta name="description" content="Browse our curated selection of luxury and semi-luxury pre-owned vehicles at Prestige Motors." />
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script defer src="/js/scripts.js"></script>
+		<style>
+			body{font-family:Inter, system-ui, Arial, sans-serif;color:var(--dark);margin:0;line-height:1.45}
+			header{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;border-bottom:1px solid var(--border)}
+			.logo{display:flex;gap:14px;align-items:center}
+			.logo img{height:48px}
+			nav{display:flex;flex-direction:row;align-items:center;gap:8px}
+			.nav-item{border-radius:999px;border:1px solid var(--border);background:var(--card);padding:0}
+			.nav-item a{display:block;padding:8px 12px;color:var(--muted);font-weight:500;text-decoration:none}
+			.nav-item a:hover{color:var(--dark)}
+			.nav-item a.active{color:var(--accent);font-weight:600}
+			.container{max-width:1200px;margin:0 auto}
+			.inventory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+			.card{border-radius:8px;border:1px solid var(--border);padding:12px;background:var(--card)}
+			footer{padding:28px 36px;border-top:1px solid var(--border);margin-top:48px;color:var(--muted)}
+			form{display:flex;flex-direction:column;gap:8px}
+			input,select,textarea{padding:10px;border-radius:6px;border:1px solid #ddd;background:var(--card)}
+			button{background:var(--accent);color:white;padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+		</style>
+	</head>
+	<body>
+		<!-- Header -->
+		<header class="container">
+			<div class="logo">
+				<a href="/pages/home.html">
+					<img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=200&h=200&fit=crop&auto=format" alt="Prestige Motors logo" />
+				</a>
+				<div>
+					<div style="font-weight:700">Prestige Motors</div>
+					<div style="font-size:12px;color:var(--muted)">Luxury • Semi‑Luxury • Select Pre‑Owned</div>
+				</div>
+			</div>
+			<nav aria-label="Primary navigation">
+				<div class="nav-item"><a href="/pages/home.html">Home</a></div>
+				<div class="nav-item"><a href="/pages/inventory.html" class="active">Inventory</a></div>
+				<div class="nav-item"><a href="/pages/finance-tradein.html">Finance & Trade‑In</a></div>
+				<div class="nav-item"><a href="/pages/about.html">About</a></div>
+				<div class="nav-item"><a href="/pages/contact.html">Contact</a></div>
+				<div class="nav-item"><a href="/pages/login.html" style="color:var(--accent);font-weight:600">Admin</a></div>
+			</nav>
+			<!-- Header controls: theme toggle etc. -->
+			<div class="header-controls" aria-hidden="false">
+				<button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">☀️</button>
+			</div>
+		</header>
+
+		<!-- Inventory search & filters -->
+		<main>
+			<section class="container" style="padding:36px">
+				<header style="display:flex;align-items:end;justify-content:space-between;margin-bottom:18px">
+					<div>
+						<h1 style="margin:0">Available Inventory</h1>
+						<div style="color:var(--muted);font-size:13px">Showing featured and newly added vehicles</div>
+					</div>
+					<form id="inventory-filters" aria-label="Inventory filters" style="display:flex;gap:8px;align-items:center">
+						<input id="search-input" aria-label="Search by model or features" placeholder="Search model, make, VIN…" />
+						<select id="year-filter" aria-label="Filter by year">
+							<option value="">Any year</option>
+						</select>
+						<select id="price-filter" aria-label="Filter by price">
+							<option value="">Any price</option>
+						</select>
+						<button type="button" id="search-button">Search</button>
+					</form>
+				</header>
+
+				<!-- Inventory grid -->
+				<div class="inventory-grid" id="inventory-list" aria-live="polite">
+					<!-- Inventory cards will be rendered here by scripts.js -->
+				</div>
+			</section>
+		</main>
+
+		<footer class="container">
+			<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+				<div>
+					<strong>Prestige Motors</strong> — Curated luxury & semi‑luxury cars • Licensed Dealer
+				</div>
+				<div style="color:var(--muted);font-size:13px">© <span id="year"></span> Prestige Motors — All rights reserved</div>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById('year').textContent = new Date().getFullYear();
+		</script>
+	</body>
+</html>
+

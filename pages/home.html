@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Home — Prestige Motors</title>
+		<meta name="description" content="Prestige Motors — premium used and pre‑owned luxury cars. Browse inventory, book a test drive, request finance quotes and trade‑ins." />
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script defer src="/js/scripts.js"></script>
+		<style>
+			body{font-family:Inter, system-ui, Arial, sans-serif;color:var(--dark);margin:0;line-height:1.45}
+			header{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;border-bottom:1px solid var(--border)}
+			.logo{display:flex;gap:14px;align-items:center}
+			.logo img{height:48px}
+			nav{display:flex;flex-direction:row;align-items:center;gap:8px}
+			.nav-item{border-radius:999px;border:1px solid var(--border);background:var(--card);padding:0}
+			.nav-item a{display:block;padding:8px 12px;color:var(--muted);font-weight:500;text-decoration:none}
+			.nav-item a:hover{color:var(--dark)}
+			.nav-item a.active{color:var(--accent);font-weight:600}
+			.hero{display:flex;gap:36px;align-items:center;padding:48px 36px;background:var(--bg)}
+			.hero .eyebrow{color:var(--accent);font-weight:600}
+			.container{max-width:1200px;margin:0 auto}
+			footer{padding:28px 36px;border-top:1px solid var(--border);margin-top:48px;color:var(--muted)}
+			button{background:var(--accent);color:white;padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+			@media(max-width:700px){.hero{flex-direction:column;text-align:center}}
+		</style>
+	</head>
+	<body>
+		<!-- Header -->
+		<header class="container">
+			<div class="logo">
+				<a href="/pages/home.html">
+					<img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=200&h=200&fit=crop&auto=format" alt="Prestige Motors logo" />
+				</a>
+				<div>
+					<div style="font-weight:700">Prestige Motors</div>
+					<div style="font-size:12px;color:var(--muted)">Luxury • Semi‑Luxury • Select Pre‑Owned</div>
+				</div>
+			</div>
+			<nav aria-label="Primary navigation">
+				<div class="nav-item"><a href="/pages/home.html" class="active">Home</a></div>
+				<div class="nav-item"><a href="/pages/inventory.html">Inventory</a></div>
+				<div class="nav-item"><a href="/pages/finance-tradein.html">Finance & Trade‑In</a></div>
+				<div class="nav-item"><a href="/pages/about.html">About</a></div>
+				<div class="nav-item"><a href="/pages/contact.html">Contact</a></div>
+				<div class="nav-item"><a href="/pages/login.html" style="color:var(--accent);font-weight:600">Admin</a></div>
+			</nav>
+			<!-- Header controls: theme toggle etc. -->
+			<div class="header-controls" aria-hidden="false">
+				<button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">☀️</button>
+			</div>
+		</header>
+
+		<!-- Hero -->
+		<main>
+			<section class="hero container">
+				<div style="flex:1">
+					<div class="eyebrow">Exclusive Collection</div>
+					<h1 style="margin:6px 0 10px;font-size:36px">Find your next prestige drive — curated selection of luxury & semi‑luxury vehicles</h1>
+					<p style="color:var(--muted)">Handpicked vehicles, professional inspections, trade‑in and bespoke financing options. Book a private viewing or request a finance quote.</p>
+					<div style="margin-top:16px;display:flex;gap:8px">
+						<a href="/pages/inventory.html"><button>Browse Inventory</button></a>
+						<a href="mailto:sales@prestigemotors.com?subject=Private Viewing Request&body=Hello,%0D%0A%0D%0AI would like to request a private viewing. Please contact me to schedule an appointment.%0D%0A%0D%0AThank you." id="private-viewing-link" style="align-self:center;text-decoration:none;color:var(--muted);margin-left:6px">Or request a private viewing</a>
+					</div>
+				</div>
+				<div style="width:420px">
+					<img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=500&fit=crop&auto=format" alt="Luxury car" style="border-radius:8px;width:100%;height:260px;object-fit:cover;border:1px solid #eee" />
+				</div>
+			</section>
+		</main>
+
+		<footer class="container">
+			<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+				<div>
+					<strong>Prestige Motors</strong> — Curated luxury & semi‑luxury cars • Licensed Dealer
+				</div>
+				<div style="color:var(--muted);font-size:13px">© <span id="year"></span> Prestige Motors — All rights reserved</div>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById('year').textContent = new Date().getFullYear();
+		</script>
+	</body>
+</html>
+

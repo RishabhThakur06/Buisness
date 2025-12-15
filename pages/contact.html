@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Contact — Prestige Motors</title>
+		<meta name="description" content="Book a test drive or contact Prestige Motors. Visit our showroom or reach out via phone or email." />
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script defer src="/js/scripts.js"></script>
+		<style>
+			body{font-family:Inter, system-ui, Arial, sans-serif;color:var(--dark);margin:0;line-height:1.45}
+			header{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;border-bottom:1px solid var(--border)}
+			.logo{display:flex;gap:14px;align-items:center}
+			.logo img{height:48px}
+			nav{display:flex;flex-direction:row;align-items:center;gap:8px}
+			.nav-item{border-radius:999px;border:1px solid var(--border);background:var(--card);padding:0}
+			.nav-item a{display:block;padding:8px 12px;color:var(--muted);font-weight:500;text-decoration:none}
+			.nav-item a:hover{color:var(--dark)}
+			.nav-item a.active{color:var(--accent);font-weight:600}
+			.container{max-width:1200px;margin:0 auto}
+			footer{padding:28px 36px;border-top:1px solid var(--border);margin-top:48px;color:var(--muted)}
+			form{display:flex;flex-direction:column;gap:8px}
+			input,select,textarea{padding:10px;border-radius:6px;border:1px solid #ddd;background:var(--card)}
+			button{background:var(--accent);color:white;padding:10px 14px;border-radius:6px;border:0;cursor:pointer}
+		</style>
+	</head>
+	<body>
+		<!-- Header -->
+		<header class="container">
+			<div class="logo">
+				<a href="/pages/home.html">
+					<img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=200&h=200&fit=crop&auto=format" alt="Prestige Motors logo" />
+				</a>
+				<div>
+					<div style="font-weight:700">Prestige Motors</div>
+					<div style="font-size:12px;color:var(--muted)">Luxury • Semi‑Luxury • Select Pre‑Owned</div>
+				</div>
+			</div>
+			<nav aria-label="Primary navigation">
+				<div class="nav-item"><a href="/pages/home.html">Home</a></div>
+				<div class="nav-item"><a href="/pages/inventory.html">Inventory</a></div>
+				<div class="nav-item"><a href="/pages/finance-tradein.html">Finance & Trade‑In</a></div>
+				<div class="nav-item"><a href="/pages/about.html">About</a></div>
+				<div class="nav-item"><a href="/pages/contact.html" class="active">Contact</a></div>
+				<div class="nav-item"><a href="/pages/login.html" style="color:var(--accent);font-weight:600">Admin</a></div>
+			</nav>
+			<!-- Header controls: theme toggle etc. -->
+			<div class="header-controls" aria-hidden="false">
+				<button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">☀️</button>
+			</div>
+		</header>
+
+		<!-- Booking / Contact -->
+		<main>
+			<section class="container" style="padding:48px 36px;background:var(--card)">
+				<h1>Book a Test Drive / Contact</h1>
+				<div style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start;margin-top:24px">
+					<div>
+						<form id="contact-form" aria-label="Booking form">
+							<label><strong>Name</strong>
+								<input name="name" placeholder="Full name" required />
+							</label>
+							<label><strong>Email</strong>
+								<input name="email" type="email" placeholder="you@example.com" required />
+							</label>
+							<label><strong>Phone</strong>
+								<input name="phone" placeholder="Mobile phone" />
+							</label>
+							<label><strong>Vehicle</strong>
+								<input name="vehicle" placeholder="Model or stock number" />
+							</label>
+							<label><strong>Message</strong>
+								<textarea name="message" rows="4" placeholder="Tell us more (preferred date/time)" /></textarea>
+							</label>
+							<div style="display:flex;gap:8px;margin-top:8px">
+								<button type="submit">Request Test Drive</button>
+								<button type="button" style="background:var(--border);color:var(--dark)" onclick="window.location.href='tel:+15551234567'">Call Sales</button>
+							</div>
+						</form>
+					</div>
+
+					<!-- Business info / map -->
+					<aside style="border-radius:8px;padding:12px;border:1px solid var(--border);background:var(--card)">
+						<div style="font-weight:700;font-size:1.1rem">Visit our Showroom</div>
+						<div style="color:var(--muted);font-size:13px;margin-top:6px">123 Prestige Drive, Suite A — City, State</div>
+						<div style="margin-top:8px;color:var(--muted);font-size:13px">Open Mon–Sat: 9am–7pm • Call: (555) 123‑4567</div>
+						<div style="margin-top:12px">
+							<a href="mailto:sales@prestigemotors.com" style="color:var(--accent);text-decoration:none;font-weight:500">sales@prestigemotors.com</a>
+						</div>
+						<img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=200&fit=crop&auto=format" alt="Map location" style="margin-top:12px;border-radius:6px;width:100%;height:120px;object-fit:cover" />
+					</aside>
+				</div>
+			</section>
+		</main>
+
+		<footer class="container">
+			<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+				<div>
+					<strong>Prestige Motors</strong> — Curated luxury & semi‑luxury cars • Licensed Dealer
+				</div>
+				<div style="color:var(--muted);font-size:13px">© <span id="year"></span> Prestige Motors — All rights reserved</div>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById('year').textContent = new Date().getFullYear();
+		</script>
+	</body>
+</html>
+
