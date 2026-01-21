@@ -1,7 +1,4 @@
-/* scripts.js — simple in-memory demo data + basic admin functions
-   Purpose: prototype buyer inventory rendering and a minimal showroom (admin) interface.
-   This is a small demo — in production you'd wire this to a CMS/DB and server APIs.
-*/
+
 (function () {
   'use strict'
 
@@ -23,7 +20,7 @@
     { id: 'v15', year: 2022, make: 'Lexus', model: 'RX 450h', mileage: 18000, transmission: 'CVT', fuel: 'Hybrid', price: 54900, image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&auto=format' }
   ]
 
-  // Ensure every vehicle object has an image; fall back to a generic hero if missing
+  
   function ensureVehicleImages(list) {
     const fallbackImage = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&h=400&fit=crop&auto=format'
     return (list || []).map(v => {
@@ -56,12 +53,12 @@
     if (!yearSelect) return
     
     const currentYear = new Date().getFullYear()
-    const startYear = currentYear - 20 // Go back 20 years
+    const startYear = currentYear - 20 
     
-    // Clear existing options except "Any year"
+    
     yearSelect.innerHTML = '<option value="">Any year</option>'
     
-    // Add years from current to start year
+    
     for (let year = currentYear; year >= startYear; year--) {
       const option = document.createElement('option')
       option.value = year
@@ -74,10 +71,10 @@
     const priceSelect = document.getElementById('price-filter')
     if (!priceSelect) return
     
-    // Clear existing options except "Any price"
+    
     priceSelect.innerHTML = '<option value="">Any price</option>'
     
-    // Define price ranges
+    
     const priceRanges = [
       { value: '0-50000', label: 'Under $50,000' },
       { value: '50000-75000', label: '$50,000 - $75,000' },
@@ -98,7 +95,7 @@
   function filterInventory(list, searchTerm, yearFilter, priceFilter) {
     let filtered = list
 
-    // Search filter
+    
     if (searchTerm) {
       const term = searchTerm.toLowerCase()
       filtered = filtered.filter(v => {
@@ -107,13 +104,13 @@
       })
     }
 
-    // Year filter
+    
     if (yearFilter) {
       const year = parseInt(yearFilter, 10)
       filtered = filtered.filter(v => v.year === year)
     }
 
-    // Price filter
+    
     if (priceFilter) {
       const [min, max] = priceFilter.split('-').map(p => p ? parseInt(p, 10) : null)
       filtered = filtered.filter(v => {
@@ -159,10 +156,10 @@
       container.appendChild(el)
     })
 
-    // Wire booking buttons (demo behaviour)
+    
     container.querySelectorAll('.btn-book').forEach(btn => btn.addEventListener('click', (e) => {
       const id = e.currentTarget.dataset.id
-      // Simple demo prompt
+      
       const name = prompt('Enter your name to request a test drive (demo):')
       if (name) {
         alert(`Thanks ${name}! We'll contact you shortly about vehicle ${id}.`)
@@ -230,7 +227,7 @@
           throw new Error('Failed to delete vehicle')
         }
         
-        // Clear localStorage cache to force refresh
+        
         localStorage.removeItem('inventory')
         renderAdminInventory()
         renderBuyerInventory()
@@ -246,7 +243,7 @@
       const item = list.find(x => x.id === id)
       if (!item) return alert('Item not found')
       
-      // For brevity demo simple edit prompt
+      
       const price = parseFloat(prompt('Set price for ' + id, item.price))
       if (isNaN(price)) return
       
@@ -278,7 +275,7 @@
           throw new Error('Failed to update vehicle')
         }
         
-        // Clear localStorage cache to force refresh
+        
         localStorage.removeItem('inventory')
         renderAdminInventory()
         renderBuyerInventory()
@@ -312,13 +309,13 @@
       featured: form.featured.checked
     }
     
-    // Disable submit button
+    
     const submitBtn = form.querySelector('button[type="submit"]')
     const originalText = submitBtn.textContent
     submitBtn.disabled = true
     submitBtn.textContent = 'Adding...'
     
-    // Send to server API
+    
     fetch('/api/inventory', {
       method: 'POST',
       headers: {
@@ -341,7 +338,7 @@
       return response.json()
     })
     .then(data => {
-      // Clear localStorage cache to force refresh
+      
       localStorage.removeItem('inventory')
       form.reset()
       renderAdminInventory()
@@ -358,7 +355,7 @@
     })
   }
 
-  // Theme: initialize from preference or system setting
+  
   const THEME_KEY = 'theme-preference'
   function applyTheme(t){
     if (!t) t = 'light'
@@ -392,12 +389,12 @@
   }
 
   function initTheme() {
-    // Apply initial theme immediately
+    
     applyTheme(initialTheme())
     
-    // Wire up theme toggle - try multiple times to ensure buttons are found
+    
     let retryCount = 0
-    const maxRetries = 20 // Max 1 second of retries (20 * 50ms)
+    const maxRetries = 20 
     
     function tryWireTheme() {
       const buttons = document.querySelectorAll('#theme-toggle')
@@ -405,7 +402,7 @@
         wireThemeToggle()
       } else if (retryCount < maxRetries) {
         retryCount++
-        // Try again after a short delay
+        
         setTimeout(tryWireTheme, 50)
       } else {
         console.warn('Theme toggle button not found after multiple attempts')
@@ -415,26 +412,26 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', tryWireTheme)
     } else {
-      // DOM already ready, but wait a tick to ensure all elements are rendered
+      
       setTimeout(tryWireTheme, 0)
     }
   }
 
-  // Track which buttons are already wired to prevent duplicates
+  
   const wiredButtons = new WeakSet()
   
   function wireThemeToggle() {
     const buttons = document.querySelectorAll('#theme-toggle')
     if (buttons.length === 0) {
-      return // Buttons not found - caller should retry
+      return 
     }
     
     buttons.forEach(btn => {
-      // Skip if this button is already wired
+      
       if (wiredButtons.has(btn)) return
       wiredButtons.add(btn)
       
-      // Remove any existing click handlers by cloning (clean slate)
+      
       const newBtn = btn.cloneNode(true)
       btn.parentNode.replaceChild(newBtn, btn)
       wiredButtons.add(newBtn)
@@ -466,19 +463,19 @@
       type: 'test-drive'
     }
 
-    // Basic validation
+    
     if (!formData.name || !formData.email) {
       alert('Please fill in your name and email address.')
       return
     }
 
-    // Disable submit button
+    
     const submitBtn = form.querySelector('button[type="submit"]')
     const originalText = submitBtn.textContent
     submitBtn.disabled = true
     submitBtn.textContent = 'Sending...'
 
-    // Send to server
+    
     fetch('/api/contact', {
       method: 'POST',
       headers: {
@@ -498,7 +495,7 @@
     })
     .catch(error => {
       console.error('Contact form error:', error)
-      // Fallback to mailto if server is not available
+      
       const mailtoBody = encodeURIComponent(
         `Name: ${formData.name}\n` +
         `Email: ${formData.email}\n` +
@@ -537,13 +534,13 @@
     populateYearFilter()
     populatePriceFilter()
 
-    // Wire up search button
+    
     const searchButton = document.getElementById('search-button')
     if (searchButton) {
       searchButton.addEventListener('click', handleInventorySearch)
     }
 
-    // Wire up form submission
+    
     const filterForm = document.getElementById('inventory-filters')
     if (filterForm) {
       filterForm.addEventListener('submit', (e) => {
@@ -552,17 +549,17 @@
       })
     }
 
-    // Wire up real-time search on input (optional - can be removed if too aggressive)
+    
     const searchInput = document.getElementById('search-input')
     if (searchInput) {
       let searchTimeout
       searchInput.addEventListener('input', () => {
         clearTimeout(searchTimeout)
-        searchTimeout = setTimeout(handleInventorySearch, 300) // Debounce
+        searchTimeout = setTimeout(handleInventorySearch, 300) 
       })
     }
 
-    // Wire up filter changes
+    
     const yearFilter = document.getElementById('year-filter')
     const priceFilter = document.getElementById('price-filter')
     if (yearFilter) {
@@ -574,7 +571,7 @@
   }
 
   function init() {
-    // Initialize theme early
+    
     initTheme()
     
     const initializeApp = () => {
@@ -582,7 +579,7 @@
       renderBuyerInventory()
       renderAdminInventory()
       
-      // Ensure theme toggle is wired up
+      
       wireThemeToggle()
 
       const addForm = document.getElementById('add-vehicle-form')
@@ -601,3 +598,4 @@
 
   init()
 })()
+

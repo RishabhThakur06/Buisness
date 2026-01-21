@@ -6,10 +6,10 @@
     <title>Showroom Dashboard — Prestige Motors</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <style>
-      /* Prefer CSS variables from styles.css so theme toggles correctly */
+      
       body{font-family:Inter, system-ui, Arial, sans-serif;color:var(--dark);margin:0;background:var(--bg);line-height:1.6}
       
-      /* Enhanced Header */
+      
       header{
         display:flex;
         align-items:center;
@@ -27,7 +27,7 @@
       
       .container{max-width:1200px;margin:0 auto;padding:24px 20px}
       
-      /* Enhanced KPI Cards */
+      
       .kpis{display:flex;gap:16px;margin-bottom:32px}
       .kpi{
         flex:1;
@@ -43,10 +43,10 @@
       .kpi-value{font-weight:700;font-size:28px;color:var(--dark);line-height:1.2}
       .kpi-icon{font-size:24px;margin-bottom:8px;opacity:0.7}
       
-      /* Enhanced Grid Layout */
+      
       .admin-grid{display:grid;grid-template-columns:1fr 440px;gap:24px;align-items:start;margin-top:24px}
       
-      /* Enhanced Cards */
+      
       .card{
         padding:24px;
         border:1px solid var(--border);
@@ -59,7 +59,7 @@
       .card h3{margin:0 0 12px;font-size:1.3rem;font-weight:700;color:var(--dark)}
       .card h4{margin:0 0 12px;font-size:1.1rem;font-weight:600;color:var(--dark)}
       
-      /* Enhanced Table */
+      
       table{
         width:100%;
         border-collapse:collapse;
@@ -89,7 +89,7 @@
       }
       table tbody tr:last-child td{border-bottom:none}
       
-      /* Enhanced Buttons */
+      
       button{
         background:var(--accent);
         color:white;
@@ -127,7 +127,7 @@
         font-size:0.85rem;
       }
       
-      /* Enhanced Forms */
+      
       label{
         display:block;
         margin-bottom:8px;
@@ -157,7 +157,7 @@
         cursor:pointer;
       }
       
-      /* Enhanced Leads Section */
+      
       .leads-list{
         list-style:none;
         padding:0;
@@ -183,7 +183,7 @@
         letter-spacing:0.5px;
       }
       
-      /* Action Buttons in Table */
+      
       .table-actions{
         display:flex;
         gap:6px;
@@ -194,7 +194,7 @@
         font-size:0.85rem;
       }
       
-      /* Page Title */
+      
       h1{
         font-size:2rem;
         font-weight:700;
@@ -207,14 +207,14 @@
         margin-bottom:24px;
       }
       
-      /* Responsive */
+      
       @media (max-width:900px){
         .admin-grid{grid-template-columns:1fr}
         .kpis{flex-direction:column}
         header{padding:16px 20px}
       }
       
-      /* Quick Actions */
+      
       .quick-actions{
         display:flex;
         flex-direction:column;
@@ -285,7 +285,7 @@
                   </tr>
                 </thead>
                 <tbody id="admin-inventory-body">
-                  <!-- populated by scripts.js -->
+                  
                 </tbody>
               </table>
             </div>
@@ -383,15 +383,15 @@
 
     <script src="/js/scripts.js"></script>
     <script>
-      // Check authentication
+      
       const authToken = localStorage.getItem('authToken')
       const username = localStorage.getItem('username')
       
       if (!authToken) {
-        // Not logged in, redirect to login
+        
         window.location.href = '/pages/login.html'
       } else {
-        // Verify token is still valid
+        
         fetch('/api/auth/check', {
           headers: {
             'Authorization': `Bearer ${authToken}`
@@ -399,12 +399,12 @@
         })
         .then(response => {
           if (!response.ok) {
-            // Token invalid, clear and redirect
+            
             localStorage.removeItem('authToken')
             localStorage.removeItem('username')
             window.location.href = '/pages/login.html'
           } else {
-            // Show username
+            
             if (username) {
               document.getElementById('user-info').textContent = `Logged in as: ${username}`
             }
@@ -417,7 +417,7 @@
         })
       }
       
-      // Logout button
+      
       document.getElementById('logout-button').addEventListener('click', async () => {
         const token = localStorage.getItem('authToken')
         if (token) {
@@ -439,7 +439,7 @@
         window.location.href = '/pages/login.html'
       })
       
-      // Sync listings count
+      
       document.addEventListener('DOMContentLoaded', () => {
         var inv = localStorage.getItem('inventory')
         try { inv = JSON.parse(inv || '[]') } catch(e){inv = []}
@@ -448,3 +448,4 @@
     </script>
   </body>
 </html>
+

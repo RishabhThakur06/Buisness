@@ -1,5 +1,5 @@
-// server.js — simple local JSON-backed API for the showroom demo
-// Usage: `node server.js` (install dependencies: express, cors, nodemailer)
+
+
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
@@ -11,16 +11,16 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Simple in-memory session store (for production, use Redis or a database)
+
 const sessions = new Map()
 
-// Default admin credentials (in production, use environment variables and hashed passwords)
+
 const ADMIN_CREDENTIALS = {
   username: process.env.ADMIN_USERNAME || 'admin',
   password: process.env.ADMIN_PASSWORD || 'admin123'
 }
 
-// Authentication middleware
+
 function requireAuth(req, res, next) {
   const token = req.headers.authorization?.replace('Bearer ', '') || req.body.token || req.query.token
   
@@ -71,7 +71,7 @@ function readData() {
 }
 
 function writeData(list) {
-  // atomic-ish write
+  
   const tmp = DATA_FILE + '.tmp'
   fs.writeFileSync(tmp, JSON.stringify(list, null, 2), 'utf8')
   fs.renameSync(tmp, DATA_FILE)
@@ -79,8 +79,8 @@ function writeData(list) {
 
 ensureDataFile()
 
-// API routes must come BEFORE static file serving to avoid conflicts
-// All API endpoints are registered here first
+
+
 app.post('/api/login', (req, res) => {
   try {
     const { username, password } = req.body
@@ -92,11 +92,11 @@ app.post('/api/login', (req, res) => {
     }
     
     if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-      // Generate session token
+      
       const token = crypto.randomBytes(32).toString('hex')
       sessions.set(token, { username, loginTime: Date.now() })
       
-      // Clean up old sessions (older than 24 hours)
+      
       const now = Date.now()
       for (const [t, session] of sessions.entries()) {
         if (now - session.loginTime > 24 * 60 * 60 * 1000) {
@@ -139,7 +139,7 @@ app.get('/api/auth/check', requireAuth, (req, res) => {
   res.json({ success: true, username: req.user.username })
 })
 
-// API
+
 app.get('/api/inventory', (req, res) => {
   res.json(readData())
 })
@@ -151,7 +151,7 @@ app.get('/api/inventory/:id', (req, res) => {
   res.json(item)
 })
 
-// Protected inventory management endpoints (require authentication)
+
 app.post('/api/inventory', requireAuth, (req, res) => {
   const list = readData()
   const body = req.body || {}
@@ -182,21 +182,21 @@ app.delete('/api/inventory/:id', requireAuth, (req, res) => {
   res.status(204).end()
 })
 
-// Reset endpoint for demo (resets to sample) - requires authentication
+
 app.post('/api/reset', requireAuth, (req, res) => {
   writeData(SAMPLE.slice())
   res.json({ ok: true })
 })
 
-// Email configuration
-// For production, use environment variables for email credentials
+
+
 const EMAIL_CONFIG = {
-  // Using Gmail as example - replace with your SMTP settings
-  // For Gmail, you'll need an "App Password" (not regular password)
-  // Set these via environment variables: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
+  
+  
+  
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
   port: parseInt(process.env.SMTP_PORT, 10) || 587,
-  secure: false, // true for 465, false for other ports
+  secure: false, 
   auth: {
     user: process.env.SMTP_USER || 'your-email@gmail.com',
     pass: process.env.SMTP_PASS || 'your-app-password'
@@ -205,7 +205,7 @@ const EMAIL_CONFIG = {
 
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || 'sales@prestigemotors.com'
 
-// Create reusable transporter object
+
 let transporter = null
 try {
   transporter = nodemailer.createTransport(EMAIL_CONFIG)
@@ -214,16 +214,16 @@ try {
   console.warn('Set SMTP_USER, SMTP_PASS, and RECIPIENT_EMAIL environment variables to enable emails.')
 }
 
-// Contact form / email endpoint
+
 app.post('/api/contact', async (req, res) => {
   const { name, email, phone, vehicle, message, type = 'test-drive' } = req.body
 
-  // Validate required fields
+  
   if (!name || !email) {
     return res.status(400).json({ error: 'Name and email are required' })
   }
 
-  // If email is not configured, return success but log the request
+  
   if (!transporter) {
     console.log('📧 Email request (email not configured):', {
       name,
@@ -289,8 +289,8 @@ This email was sent from the Prestige Motors website contact form.
   }
 })
 
-// Serve static site files AFTER all API routes to avoid conflicts
-// This ensures API routes are matched before static file serving
+
+
 app.use('/', express.static(path.join(__dirname)))
 
 const PORT = parseInt(process.env.PORT, 10) || 3000
@@ -302,3 +302,4 @@ app.listen(PORT, () => {
     console.log(`📧 Email configured. Emails will be sent to: ${RECIPIENT_EMAIL}`)
   }
 })
+
