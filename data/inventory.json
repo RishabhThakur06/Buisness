@@ -44,7 +44,8 @@
     "transmission": "Automatic",
     "fuel": "Petrol",
     "price": 62900,
-    "image": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&auto=format"
+    "image": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&auto=format",
+    "featured": true
   },
   {
     "id": "v6",
@@ -67,7 +68,8 @@
     "transmission": "Automatic",
     "fuel": "Hybrid",
     "price": 59900,
-    "image": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&auto=format"
+    "image": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&auto=format",
+    "featured": true
   },
   {
     "id": "v8",
