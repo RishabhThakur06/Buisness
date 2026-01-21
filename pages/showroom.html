@@ -265,8 +265,15 @@
         </div>
       </section>
 
-      <div class="admin-grid">
-        <section>
+    <div class="admin-grid">
+      <section>
+        <!-- Cart feature -->
+        <div class="card" id="cart-section" style="margin-bottom:24px;">
+          <h3 style="margin-top:0;">🛒 Sample Cart</h3>
+          <div id="cart-list"></div>
+          <div id="cart-totals" style="margin-top:16px;"></div>
+          <button id="cart-clear-btn" class="danger" style="margin-top:12px;display:none;">Clear cart</button>
+        </div>
           <div class="card">
             <h3>Inventory Manager</h3>
             <p style="color:var(--muted);margin:0 0 16px;">Edit prices, remove listings, and add new vehicles using the form on the right.</p>
@@ -292,22 +299,20 @@
           </div>
 
           <div style="margin-top:20px" class="card">
-            <h4>Recent Leads & Bookings</h4>
-            <ul class="leads-list">
-              <li>
-                <div class="lead-type">Lead</div>
-                <div style="font-weight:500;margin-top:4px">Anna S — Test drive request (v1)</div>
-              </li>
-              <li>
-                <div class="lead-type">Lead</div>
-                <div style="font-weight:500;margin-top:4px">James K — Finance inquiry</div>
-              </li>
-              <li>
-                <div class="lead-type">Booking</div>
-                <div style="font-weight:500;margin-top:4px">Michael B — Sunday 10am</div>
-              </li>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <h4 style="margin:0;">Recent Leads & Bookings</h4>
+              <button id="toggle-completed-leads" class="secondary small" style="font-size:0.85rem;">Show Completed</button>
+            </div>
+            <ul class="leads-list" id="admin-leads-list">
+              <li style="color:var(--muted);text-align:center;padding:20px">Loading leads...</li>
             </ul>
-            <div style="color:var(--muted);font-size:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">(Demo data — connect your CRM to capture real leads)</div>
+            <div id="completed-leads-section" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+              <h4 style="margin:0 0 12px 0;font-size:1rem;">Completed Test Drives</h4>
+              <ul class="leads-list" id="admin-completed-leads-list">
+                <li style="color:var(--muted);text-align:center;padding:20px">No completed leads yet</li>
+              </ul>
+            </div>
+            <div style="color:var(--muted);font-size:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">Real-time lead capture from your website</div>
           </div>
         </section>
 
@@ -367,18 +372,35 @@
             </form>
           </div>
 
-          <div style="margin-top:20px" class="card">
-            <h4>Quick actions</h4>
-            <div class="quick-actions">
-              <button onclick="alert('Export CSV — demo only')">📥 Export inventory CSV</button>
-              <button class="secondary" onclick="alert('Import CSV — demo only')">📤 Import inventory</button>
-            </div>
-            <div style="color:var(--muted);font-size:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-              More integrations: CRM sync, dealer management system (DMS), analytics.
-            </div>
-          </div>
         </aside>
       </div>
+    <!-- Edit Vehicle Modal -->
+    <div id="edit-modal" class="modal" style="display:none;position:fixed;z-index:200;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.18);justify-content:center;align-items:center;">
+      <div style="background:var(--card);padding:24px 24px 16px 24px;min-width:320px;max-width:450px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.14);position:relative;">
+        <h3 style="margin-top:0">Edit Vehicle</h3>
+        <form id="edit-vehicle-form" style="display:flex;flex-direction:column;gap:10px">
+          <input type="hidden" name="id" />
+          <label>Year <input name="year" type="number" min="1900" max="2030" required /></label>
+          <label>Make <input name="make" type="text" required /></label>
+          <label>Model <input name="model" type="text" required /></label>
+          <label>Mileage <input name="mileage" type="number" min="0" required /></label>
+          <label>Transmission <select name="transmission"><option>Automatic</option><option>Manual</option><option>CVT</option><option>PDK</option><option>2-Speed Auto</option><option>8-Speed Auto</option><option>7-Speed SSG</option><option>8-Speed DCT</option><option>9-Speed Auto</option></select></label>
+          <label>Fuel <select name="fuel"><option>Petrol</option><option>Diesel</option><option>Hybrid</option><option>Electric</option></select></label>
+          <label>Price <input name="price" type="number" min="0" step="100" required /></label>
+          <label>Image URL <input name="image" type="text" required /></label>
+          <label style="display:flex;align-items:center;gap:8px"><input name="featured" type="checkbox" /> Featured</label>
+          <div style="display:flex;gap:12px;margin-top:16px;">
+            <button type="submit">Save changes</button>
+            <button type="button" id="edit-cancel-btn" class="secondary">Cancel</button>
+          </div>
+        </form>
+        <button type="button" id="edit-modal-close" aria-label="Close edit modal" style="position:absolute;top:16px;right:16px;background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;">&times;</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="admin-toast" style="display:none;position:fixed;top:32px;left:50%;transform:translateX(-50%);background:var(--accent);color:white;padding:12px 32px;border-radius:8px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.10);z-index:10000;font-size:1rem;min-width:200px;text-align:center;"></div>
+
     </main>
 
     <script src="/js/scripts.js"></script>

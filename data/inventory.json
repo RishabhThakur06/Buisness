@@ -7,7 +7,7 @@
     "mileage": 58000,
     "transmission": "Automatic",
     "fuel": "Petrol",
-    "price": 74900,
+    "price": 600000,
     "image": "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&auto=format",
     "featured": true
   },
@@ -22,17 +22,6 @@
     "price": 119500,
     "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop&auto=format",
     "featured": true
-  },
-  {
-    "id": "v3",
-    "year": 2021,
-    "make": "BMW",
-    "model": "7 Series 740i",
-    "mileage": 32000,
-    "transmission": "Automatic",
-    "fuel": "Petrol",
-    "price": 68900,
-    "image": "https://images.unsplash.com/photo-1555215695-3004f00581ec?w=600&h=400&fit=crop&auto=format"
   },
   {
     "id": "v4",
@@ -103,17 +92,6 @@
     "image": "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&h=400&fit=crop&auto=format"
   },
   {
-    "id": "v10",
-    "year": 2021,
-    "make": "BMW",
-    "model": "X7 M50i",
-    "mileage": 25000,
-    "transmission": "Automatic",
-    "fuel": "Petrol",
-    "price": 89900,
-    "image": "https://images.unsplash.com/photo-1555215695-3004f00581ec?w=600&h=400&fit=crop&auto=format"
-  },
-  {
     "id": "v11",
     "year": 2022,
     "make": "Mercedes-Benz",
@@ -157,16 +135,5 @@
     "fuel": "Petrol",
     "price": 98900,
     "image": "https://images.unsplash.com/photo-1555215695-3004f00581ec?w=600&h=400&fit=crop&auto=format"
-  },
-  {
-    "id": "v15",
-    "year": 2022,
-    "make": "Lexus",
-    "model": "RX 450h",
-    "mileage": 18000,
-    "transmission": "CVT",
-    "fuel": "Hybrid",
-    "price": 54900,
-    "image": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&auto=format"
   }
 ]

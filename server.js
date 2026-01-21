@@ -34,6 +34,7 @@ function requireAuth(req, res, next) {
 
 const DATA_DIR = path.join(__dirname, 'data')
 const DATA_FILE = path.join(DATA_DIR, 'inventory.json')
+const LEADS_FILE = path.join(DATA_DIR, 'leads.json')
 
 const SAMPLE = [
   { id: 'v1', year: 2023, make: 'Mercedes-Benz', model: 'S-Class S 580', mileage: 5800, transmission: 'Automatic 9G-TRONIC', fuel: 'Petrol', price: 124900, image: '/assets/car1.jpg', featured: true, color: 'Obsidian Black', features: ['Night Package', 'Air Balance', 'Rear Executive Seats', 'Burmester 4D Sound'] },
@@ -75,6 +76,28 @@ function writeData(list) {
   const tmp = DATA_FILE + '.tmp'
   fs.writeFileSync(tmp, JSON.stringify(list, null, 2), 'utf8')
   fs.renameSync(tmp, DATA_FILE)
+}
+
+function readLeads() {
+  try {
+    if (!fs.existsSync(LEADS_FILE)) return []
+    const raw = fs.readFileSync(LEADS_FILE, 'utf8')
+    return JSON.parse(raw || '[]')
+  } catch (err) {
+    console.warn('Failed reading leads, returning empty', err)
+    return []
+  }
+}
+
+function writeLeads(leads) {
+  try {
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
+    const tmp = LEADS_FILE + '.tmp'
+    fs.writeFileSync(tmp, JSON.stringify(leads, null, 2), 'utf8')
+    fs.renameSync(tmp, LEADS_FILE)
+  } catch (err) {
+    console.error('Failed writing leads:', err)
+  }
 }
 
 ensureDataFile()
@@ -214,13 +237,88 @@ try {
   console.warn('Set SMTP_USER, SMTP_PASS, and RECIPIENT_EMAIL environment variables to enable emails.')
 }
 
+// Leads/Bookings API
+app.get('/api/leads', requireAuth, (req, res) => {
+  const leads = readLeads()
+  // Return most recent first, limit to last 50
+  const sorted = leads.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 50)
+  res.json(sorted)
+})
+
+// Mark lead as completed
+app.put('/api/leads/:id/complete', requireAuth, (req, res) => {
+  const leadId = req.params.id
+  const leads = readLeads()
+  const leadIndex = leads.findIndex(l => l.id === leadId)
+  
+  if (leadIndex === -1) {
+    return res.status(404).json({ error: 'Lead not found' })
+  }
+  
+  leads[leadIndex].completed = true
+  leads[leadIndex].completedAt = new Date().toISOString()
+  writeLeads(leads)
+  
+  res.json({ success: true, lead: leads[leadIndex] })
+})
+
+// Email validation helper
+function isValidEmail(email) {
+  if (!email || typeof email !== 'string') return false
+  const trimmed = email.trim()
+  if (!trimmed) return false
+  
+  // Basic email format check: must contain @ and have text before and after
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(trimmed)) return false
+  
+  // Ensure it has at least one dot after @ (for domain like .com, .co.uk, etc.)
+  const parts = trimmed.split('@')
+  if (parts.length !== 2) return false
+  const domain = parts[1]
+  if (!domain.includes('.')) return false
+  
+  // Ensure domain has at least 2 characters after the last dot (e.g., .com, .uk)
+  const domainParts = domain.split('.')
+  if (domainParts.length < 2) return false
+  if (domainParts[domainParts.length - 1].length < 2) return false
+  
+  return true
+}
+
 // Contact form / email endpoint
 app.post('/api/contact', async (req, res) => {
   const { name, email, phone, vehicle, message, type = 'test-drive' } = req.body
 
   // Validate required fields
-  if (!name || !email) {
-    return res.status(400).json({ error: 'Name and email are required' })
+  if (!name) {
+    return res.status(400).json({ error: 'Name is required' })
+  }
+
+  // Validate email format if provided
+  if (email && email.trim() && !isValidEmail(email)) {
+    return res.status(400).json({ error: 'Invalid email format. Email must include @ and a valid domain (e.g., .com)' })
+  }
+
+  // Save to leads storage
+  try {
+    const leads = readLeads()
+    const newLead = {
+      id: 'lead_' + Date.now(),
+      name: name.trim(),
+      email: email ? email.trim() : null,
+      phone: phone ? phone.trim() : null,
+      vehicle: vehicle || null,
+      vehicleId: vehicle ? vehicle.match(/v\d+/)?.[0] : null,
+      message: message || null,
+      type: type,
+      timestamp: new Date().toISOString()
+    }
+    leads.push(newLead)
+    writeLeads(leads)
+    console.log('📝 New lead saved:', newLead.name, newLead.type)
+  } catch (err) {
+    console.error('Failed to save lead:', err)
   }
 
   // If email is not configured, return success but log the request

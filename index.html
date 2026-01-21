@@ -117,7 +117,6 @@
 					</div>
 				</div>
 			</section>
-
 			<!-- About -->
 			<section id="about" class="container" style="padding:36px">
 				<h2>About Prestige Motors</h2>
@@ -125,7 +124,7 @@
 			</section>
 
 			<!-- Booking / Contact -->
-			<section id="contact" class="container" style="padding:36px;background:var(--card)">
+			<section id="contact" class="container" style="padding:36px;background:var(--card); display: none;">
 				<h2>Book a Test Drive / Contact</h2>
 				<div style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
 					<div>
@@ -172,10 +171,21 @@
 				<div style="color:var(--muted);font-size:13px">© <span id="year"></span> Prestige Motors — All rights reserved</div>
 			</div>
 		</footer>
+		<button 
+    onclick="var navLink = document.querySelector('nav a[href*=\'about\']'); if(navLink) { var parent = navLink.parentElement; parent.style.display = (parent.style.display === 'none' ? '' : 'none'); }"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 99999; padding: 12px 20px; background-color: #d21010; color: white; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-weight: bold; cursor: pointer;">
+    Toggle About Menu
+</button>
 
 		<script>
 			// Small script to set copyright year
 			document.getElementById('year').textContent = new Date().getFullYear();
+
+			// Contact form toggle
+			document.querySelector('button[onclick]').addEventListener('click', function() {
+				var contactSection = document.getElementById('contact');
+				contactSection.style.display = (contactSection.style.display === 'none' || contactSection.style.display === '') ? 'block' : 'none';
+			});
 
 			// TODO: wire up form submission, inventory search, and CMS/CRM integrations
 		</script>
