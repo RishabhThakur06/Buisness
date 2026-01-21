@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const path = require('path');
 
-// Image URLs mapping (using placeholder service, replace with actual images later)
+
 const imageUrls = {
   'car1.jpg': 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop',
   'car2.jpg': 'https://images.unsplash.com/photo-1503376785-2a5b9cb5c2d3?w=800&auto=format&fit=crop',
@@ -18,13 +18,13 @@ const imageUrls = {
   'car12.jpg': 'https://images.unsplash.com/photo-1503376785-2a5b9cb5c2d3?w=800&auto=format&fit=crop'
 };
 
-// Ensure assets directory exists
+
 const assetsDir = path.join(__dirname, 'assets');
 if (!fs.existsSync(assetsDir)) {
   fs.mkdirSync(assetsDir, { recursive: true });
 }
 
-// Download function
+
 function downloadImage(url, filepath) {
   return new Promise((resolve, reject) => {
     https.get(url, (response) => {
@@ -45,7 +45,7 @@ function downloadImage(url, filepath) {
   });
 }
 
-// Download all images
+
 async function downloadAllImages() {
   try {
     const downloadPromises = Object.entries(imageUrls).map(([filename, url]) => {
@@ -60,5 +60,6 @@ async function downloadAllImages() {
   }
 }
 
-// Run the download
+
 downloadAllImages();
+

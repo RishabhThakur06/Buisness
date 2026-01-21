@@ -1,5 +1,5 @@
 @echo off
-REM Change to the directory where this batch file is located
+REM "C:\Users\Rishabh Thakur\Documents\Buisness\start-server.bat"
 cd /d "%~dp0"
 echo ========================================
 echo   Prestige Motors Server

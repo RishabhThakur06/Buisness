@@ -35,7 +35,7 @@
 		</style>
 	</head>
 	<body>
-		<!-- Header -->
+		
 		<header class="container">
 			<div class="logo">
 				<a href="/pages/home.html">
@@ -53,13 +53,13 @@
 				<div class="nav-item"><a href="/pages/about.html">About</a></div>
 				<div class="nav-item"><a href="/pages/contact.html">Contact</a></div>
 			</nav>
-			<!-- Header controls: theme toggle etc. -->
+			
 			<div class="header-controls" aria-hidden="false">
 				<button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">☀️</button>
 			</div>
 		</header>
 
-		<!-- Login Form -->
+		
 		<main style="width:100%;padding:120px 20px 40px">
 			<div class="login-container">
 				<h1>Admin Login</h1>
@@ -87,12 +87,12 @@
 		</main>
 
 		<script>
-			// Check if already logged in
+			
 			if (localStorage.getItem('authToken')) {
 				window.location.href = '/pages/showroom.html'
 			}
 
-			// Handle login form submission
+			
 			document.getElementById('login-form').addEventListener('submit', async (e) => {
 				e.preventDefault()
 				
@@ -103,11 +103,11 @@
 				const errorDiv = document.getElementById('error-message')
 				const successDiv = document.getElementById('success-message')
 				
-				// Hide previous messages
+				
 				errorDiv.style.display = 'none'
 				successDiv.style.display = 'none'
 				
-				// Disable button
+				
 				loginButton.disabled = true
 				loginButton.textContent = 'Signing in...'
 				
@@ -120,7 +120,7 @@
 						body: JSON.stringify({ username, password })
 					})
 					
-					// Check if response is ok before parsing JSON
+					
 					let data
 					try {
 						data = await response.json()
@@ -134,20 +134,20 @@
 					}
 					
 					if (response.ok && data.success) {
-						// Store auth token
+						
 						localStorage.setItem('authToken', data.token)
 						localStorage.setItem('username', data.username)
 						
-						// Show success message
+						
 						successDiv.textContent = 'Login successful! Redirecting...'
 						successDiv.style.display = 'block'
 						
-						// Redirect to showroom
+						
 						setTimeout(() => {
 							window.location.href = '/pages/showroom.html'
 						}, 500)
 					} else {
-						// Show error
+						
 						errorDiv.textContent = data.message || 'Invalid username or password'
 						errorDiv.style.display = 'block'
 						loginButton.disabled = false
@@ -171,4 +171,5 @@
 		</script>
 	</body>
 </html>
+
 
